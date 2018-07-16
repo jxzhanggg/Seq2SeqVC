@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>seq2seqVC</title>
+<style type="text/css">
+</style></head>
+
+<body>
+<h2><strong>Audio Samples from &quot;Sequence-to-sequence Acoustic Modeling for Voice Conversion</strong>&quot;</h2>
+<h3>Authors: </h3>
+Jing-Xuan Zhang, Zhen-Hua Ling, Li-Rong Dai
+<h3>Abstract: </h3>
+In this paper, a sequence-to-sequence (seq2seq) with attention model is presented for acoustic modelling in voice conversion task. Utterances pairs of source and target speaker with different length are modeled directly based on seq2seq framework in proposed method. The proposed method contains two parts, one is a Sequence-to-sequence ConvErsion NeTwork (SCENT) and the other is a WaveNet vocoder. SCENT converts the sequence of input acoustic frames into that of target ones. Mel-scale spectrograms are used as acoustic features and the bottleneck features of an automatic speech recognition model are appended as auxiliary input. SCENT is a seq2seq neural network that aligns the input and output sequence pairs at utterance level implicitly by attention mechanism. Since mel spectrograms are used as acoustic features, pitch and spectral envelope are converted simultaneously in a single model. The WaveNet vocoder conditioned by mel spectrogram are trained in order to reconstruct waveform. To the best of our knowledge, we are the first work successfully adopt the seq2seq with attention framework at the utterance level in the voice conversion task. Taking advantage of this framework, prosody conversion can be modeled more precisely, especially in the durational aspects. Experiments demonstrated the proposed voice conversion system outperform the baseline system in term of both naturalness and similarity. Ablation tests were further conducted and showed the effectiveness of appending bottleneck features and attention module of proposed method. 
+<p>&nbsp;</p>
+<hr />
+<h3>&nbsp;</h3>
+<h3><em>0. ground truth audio for Demo Section 1, 2, 3</em></h3>
+<table width="719" border="1">
+  <tr>
+    <td colspan="2">Female</td>
+    <td colspan="2">Male</td>
+  </tr>
+  <tr>
+    <td width="177"><audio controls>
+        <source src="wav/truth/f/11.wav" type="audio/wav">
+    </audio></td>
+    <td width="163"><audio controls>
+        <source src="wav/truth/f/20.wav" type="audio/wav">
+    </audio></td>
+    <td width="150"><audio controls>
+        <source src="wav/truth/m/11.wav" type="audio/wav">
+    </audio></td>
+    <td width="201"><audio controls>
+        <source src="wav/truth/m/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td height="67">    
+    <p>他难道不知道我要存钱去超市买零食啊？ (ta1 nan2 dao4 bu4 zhi1 dao4 wo3 yao4 cun2  qian2 qu4 chao1 shi4 mai3 ling2 shi2 a0?)</p></td>
+    <td><p>马上停机了，明天要是去市里，记得给我充下话费。 (ma3 shang4 ting2 ji1 le0, ming2 tian1 yao4 shi4 qu4 shi4 li3, ji4 de0 gei2 wo3 chong1 xia3 hua4 fei4.)</p></td>
+    <td><p>他难道不知道我要存钱去超市买零食啊？ (ta1 nan2 dao4 bu4 zhi1 dao4 wo3 yao4 cun2  qian2 qu4 chao1 shi4 mai3 ling2 shi2 a0?)</p></td>
+    <td>马上停机了，明天要是去市里，记得给我充下话费。 (ma3 shang4 ting2 ji1 le0, ming2 tian1 yao4 shi4 qu4 shi4 li3, ji4 de0 gei2 wo3 chong1 xia3 hua4 fei4.)</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<h3><em>1. Comparsion of proposed method to baseline methods</em></h3>
+<table width="763" border="1">
+  <tr>
+    <td width="97" nowrap="nowrap">&nbsp;</td>
+    <td colspan="2">Female-Male</td>
+    <td colspan="2">Male-Female</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">JD-GMM</td>
+    <td><audio controls>
+        <source src="wav/GMM/f-m/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/GMM/f-m/00000601.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/GMM/m-f/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/GMM/m-f/00000601.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-JD-GMM</td>
+    <td><audio controls>
+        <source src="wav/i-GMM/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-GMM/f-m/20.wav" type="audio/wav">
+      </audio></td>
+    <td><audio controls>
+        <source src="wav/i-GMM/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-GMM/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">DNN</td>
+    <td><audio controls>
+        <source src="wav/DNN/f-m/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/DNN/f-m/00000601.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/DNN/m-f/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/DNN/m-f/00000601.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-DNN</td>
+    <td><audio controls>
+        <source src="wav/i-DNN/f-m/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-DNN/f-m/00000601.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-DNN/m-f/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-DNN/m-f/00000601.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">bn-DNN</td>
+    <td><audio controls>
+        <source src="wav/bn-DNN/f-m/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/bn-DNN/f-m/00000601.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/bn-DNN/m-f/00000062.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/bn-DNN/m-f/00000601.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-bn-DNN</td>
+    <td><audio controls>
+        <source src="wav/i-bn-DNN/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-bn-DNN/f-m/20.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-bn-DNN/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-bn-DNN/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">VCC2018</td>
+    <td><audio controls>
+        <source src="wav/vcc2018/f-m/00000062_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/vcc2018/f-m/00000601_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/vcc2018/m-f/00000062_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/vcc2018/m-f/00000601_wavnet.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-VCC2018</td>
+    <td><audio controls>
+        <source src="wav/i-vcc2018/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-vcc2018/f-m/20.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-vcc2018/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i-vcc2018/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap"><em>Proposed</em></td>
+    <td><audio controls>
+        <source src="wav/proposed/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/proposed/f-m/20.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/proposed/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/proposed/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+</table>
+<p>&quot;i-&quot; in the prefix of method name represents interpolation for global speaking rate adjustment. &quot;-bn-&quot; represents using bottleneck features for DNN based method as we described in the paper.</p>
+<p>&nbsp;</p>
+<h3><em>2. Comparison of proposed method with to without bottleneck features</em></h3>
+<table width="764" border="1">
+  <tr>
+    <td width="97" nowrap="nowrap">&nbsp;</td>
+    <td colspan="2">Female-Male</td>
+    <td colspan="2">Male-Female</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">w-bn</td>
+    <td width="157"><audio controls>
+        <source src="wav/proposed/f-m/11.wav" type="audio/wav">
+      </audio></td>
+    <td width="157"><audio controls>
+        <source src="wav/proposed/f-m/20.wav" type="audio/wav">
+      </audio></td>
+    <td width="161"><audio controls>
+        <source src="wav/proposed/m-f/11.wav" type="audio/wav">
+      </audio></td>
+    <td width="158"><audio controls>
+        <source src="wav/proposed/m-f/20.wav" type="audio/wav">
+      </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">w/o-bn</td>
+   <td><audio controls>
+        <source src="wav/w_o_bn/f-m2/gen_spc_13_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_bn/f-m2/gen_spc_28_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_bn/m-f2/gen_spc_13_wavnet.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_bn/m-f2/gen_spc_28_wavnet.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+</table>
+<p>&quot;w-bn&quot; represents proposed method using bottleneck features; &quot;w/o-bn&quot; represents proposed method without using bottleneck features.</p>
+<p>&nbsp;</p>
+<h3><em>3. Comparison of proposed method with to without attention module</em></h3>
+<table width="768" border="1">
+  <tr>
+    <td width="93" nowrap="nowrap">&nbsp;</td>
+    <td colspan="2">Female-Male</td>
+    <td colspan="2">Male-Female</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">w-att</td>
+        <td width="172"><audio controls>
+        <source src="wav/proposed/f-m/11.wav" type="audio/wav">
+      </audio></td>
+    <td width="153"><audio controls>
+        <source src="wav/proposed/f-m/20.wav" type="audio/wav">
+      </audio></td>
+    <td width="161"><audio controls>
+        <source src="wav/proposed/m-f/11.wav" type="audio/wav">
+      </audio></td>
+    <td width="155"><audio controls>
+        <source src="wav/proposed/m-f/20.wav" type="audio/wav">
+      </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">w/o-att</td>
+    <td><audio controls>
+        <source src="wav/w_o_att/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_att/f-m/20.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_att/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/w_o_att/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-w/o-att</td>
+    <td><audio controls>
+        <source src="wav/i_w_o_att/f-m/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i_w_o_att/f-m/20.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i_w_o_att/m-f/11.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/i_w_o_att/m-f/20.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+</table>
+<p>&quot;w-att&quot; and ''w/o-att'' represents proposed method   represents proposed method with and without attention mdule respectively;''i-w/o-att&quot; represents proposed method without attention and using interpolation for global speaking rate adjustment.</p>
+<p>&nbsp;</p>
+<h3><em>4. Example of mispronunciation samples in proposed method</em></h3>
+<table width="1155" border="1">
+  <tr>
+    <td width="89" nowrap="nowrap">&nbsp;</td>
+    <td width="248">source utterance</td>
+    <td width="263">text</td>
+    <td width="236">converted utterance</td>
+    <td width="285">text sounds like </td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Female-Male</td>
+    <td><audio controls>
+        <source src="wav/failed/fm/00000014.wav" type="audio/wav">
+    </audio></td>
+    <td width="263"><p>懒鬼起床了，大懒虫，太阳晒屁股了，该运动运动了。(lan2 gui3 qi3 chuang2 le0, da4 lan3 chong2, tai4 yang2 sha4 pi4 gui0 le0, gai1 yun4 dong0 yun4 dong0 le0.)</p>
+    </td>
+    <td><audio controls>
+        <source src="wav/failed/fm/00000014c.wav" type="audio/wav">
+    </audio></td>
+    <td width="285">lan2 gui3 qi3 <font color="#FF0000"><em>chang</em></font>2 le0, da4 lan3 chong2, tai4 yang2 sha4 pi4 gui0 le0, gai1 yun4 dong0 yun4 dong0 le0.</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Female-Male</td>
+    <td><audio controls>
+        <source src="wav/failed/fm/00000108.wav" type="audio/wav">
+    </audio></td>
+    <td width="263"><p>做作业从早上八点半到晚上十二点。(zuo4 zuo4 ye4 cong2 zao3 shang4 ba1 dian3 ban4 dao4 shi2 er4 dian3.)</p></td>
+    <td><audio controls>
+        <source src="wav/failed/fm/00000108c.wav" type="audio/wav">
+    </audio></td>
+    <td width="285">zuo4 zuo4 ye4 cong2 zao3 shang4 ba1 <font color="#FF0000"><em>dan</em></font>4 ban4 dao4 shi2 er4 dian3.</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Male-Female</td>
+    <td><audio controls>
+        <source src="wav/failed/mf/00000203.wav" type="audio/wav">
+    </audio></td>
+    <td width="263"><p>想娶我吗?.那是要付出代价的。 (xiang2 qu2 wo3 ma0? na4 shi4 yao4 fu4 chu1 dai4 jia0 de0.)</p></td>
+    <td><audio controls>
+        <source src="wav/failed/mf/00000203c.wav" type="audio/wav">
+    </audio></td>
+    <td width="285">xiang2 qu2 wo3 ma0? na4 shi4 yao4 fu<font color="#FF0000"><em>3</em></font> chu1 dai4 jia<font color="#FF0000"><em>3</em></font> de0.</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Male-Female</td>
+    <td><audio controls>
+        <source src="wav/failed/mf/00000209.wav" type="audio/wav">
+    </audio></td>
+    <td width="263"><p>你家最近怎么这么多客人呢？(ni3 jia1 zui4 jin4 zen3 me0 zhe4 me0 duo1 ke4 ren0 ne0?)</p></td>
+    <td><audio controls>
+        <source src="wav/failed/mf/00000209c.wav" type="audio/wav">
+    </audio></td>
+    <td width="285">ni3 jia1 <font color="#FF0000"><em>zi</em></font>4 jin4 zen3 me0 zhe4 me0 duo1 ke<font color="#FF0000"><em>3</em></font> ren<font color="#FF0000"><em>2</em></font> ne0?</td>
+  </tr>
+</table>
+<p>Notice that these samples are selected from the extras non-parallel part of datas<span class="red">ets, thus no </span>corresponding ground truth target utterances can be presented. Red emphasised phomene or intonation indicates the incorrected pronunciation.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>
