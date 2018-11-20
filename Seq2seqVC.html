@@ -7,15 +7,16 @@
 </style></head>
 
 <body>
-<h2><strong>Audio Samples from &quot;Sequence-to-sequence Acoustic Modeling for Voice Conversion</strong>&quot;</h2>
+<h2><strong>Audio Samples from &quot;Sequence-to-Sequence Acoustic Modeling for Voice Conversion</strong>&quot;</h2>
+<p>Paper:<a href="https://arxiv.org/abs/1810.06865"> Sequence-to-Sequence Acoustic Modeling for Voice Conversion</a> (Submitted to IEEE/ACM Transactions on audio, speech and language processing, Aug. 2018)</p>
 <h3>Authors: </h3>
-Jing-Xuan Zhang, Zhen-Hua Ling, Li-Rong Dai
+Jing-Xuan Zhang, Zhen-Hua Ling, Li-Juan Liu, Yuan-Jiang, Li-Rong Dai
 <h3>Abstract: </h3>
-In this paper, a sequence-to-sequence (seq2seq) with attention model is presented for acoustic modelling in voice conversion task. Utterances pairs of source and target speaker with different length are modeled directly based on seq2seq framework in proposed method. The proposed method contains two parts, one is a Sequence-to-sequence ConvErsion NeTwork (SCENT) and the other is a WaveNet vocoder. SCENT converts the sequence of input acoustic frames into that of target ones. Mel-scale spectrograms are used as acoustic features and the bottleneck features of an automatic speech recognition model are appended as auxiliary input. SCENT is a seq2seq neural network that aligns the input and output sequence pairs at utterance level implicitly by attention mechanism. Since mel spectrograms are used as acoustic features, pitch and spectral envelope are converted simultaneously in a single model. The WaveNet vocoder conditioned by mel spectrogram are trained in order to reconstruct waveform. To the best of our knowledge, we are the first work successfully adopt the seq2seq with attention framework at the utterance level in the voice conversion task. Taking advantage of this framework, prosody conversion can be modeled more precisely, especially in the durational aspects. Experiments demonstrated the proposed voice conversion system outperform the baseline system in term of both naturalness and similarity. Ablation tests were further conducted and showed the effectiveness of appending bottleneck features and attention module of proposed method. 
+In this paper, a neural network named Sequence-to- sequence ConvErsion NeTwork (SCENT) is presented for acoustic modeling in voice conversion. At training stage, a SCENT model is estimated by aligning the feature sequences of source and target speakers implicitly using attention mechanism. At conversion stage, acoustic features and durations of source utterances are converted simultaneously using the unified acoustic model, which is difficult to be achieved in conventional method. Mel-scale spectrograms are adopted as acoustic features which contain both excitation and vocal tract descriptions of speech signals. The bottleneck features extracted from source speech using an automatic speech recognition (ASR) model are appended as auxiliary input. A WaveNet vocoder conditioned on Mel- spectrograms is built to reconstruct waveforms from the output of the SCENT model. Experimental results show that our proposed method achieved better objective and subjective performance than the baseline methods using Gaussian mixture models (GMM) and deep neural networks (DNN) as acoustic models. This proposed method also outperformed our previous work which achieved the top rank in Voice Conversion Challenge 2018. Ablation tests further confirm the effectiveness of appending bottleneck features and using attention module in our proposed method.
 <p>&nbsp;</p>
 <hr />
 <h3>&nbsp;</h3>
-<h3><em>0. ground truth audio for Demo Section 1, 2, 3</em></h3>
+<h3><em>0. Reference audios and corresponding texts in  Section 1., 2., 3..</em></h3>
 <table width="719" border="1">
   <tr>
     <td colspan="2">Female</td>
@@ -45,11 +46,12 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
 </table>
 <p>&nbsp;</p>
 <h3><em>1. Comparsion of proposed method to baseline methods</em></h3>
+<p><strong>Samples of experiments on Mandarin dataset.</strong></p>
 <table width="763" border="1">
   <tr>
-    <td width="97" nowrap="nowrap">&nbsp;</td>
-    <td colspan="2">Female-Male</td>
-    <td colspan="2">Male-Female</td>
+    <td width="97" nowrap="nowrap">Methods</td>
+    <td colspan="2">Female-to-Male</td>
+    <td colspan="2">Male-to-Female</td>
   </tr>
   <tr>
     <td nowrap="nowrap">JD-GMM</td>
@@ -187,17 +189,100 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     </audio></td>
   </tr>
 </table>
-<p>&quot;i-&quot; in the prefix of method name represents interpolation for global speaking rate adjustment. &quot;-bn-&quot; represents using bottleneck features for DNN based method as we described in the paper.</p>
-<p>&nbsp;</p>
-<h3><em>2. Comparison of proposed method with to without bottleneck features</em></h3>
-<table width="764" border="1">
+<p>&quot;i-&quot; in the prefixes of method names represent interpolation for global speaking rate adjustment. &quot;-bn-&quot; represents using bottleneck features for DNN based method as we described in the paper.</p>
+<p><strong>Samples of experiments on English CMU ARCTIC dataset.</strong></p>
+<table width="771" border="1">
   <tr>
-    <td width="97" nowrap="nowrap">&nbsp;</td>
-    <td colspan="2">Female-Male</td>
-    <td colspan="2">Male-Female</td>
+    <td width="112">Methods</td>
+    <td colspan="2">SLT-to-RMS</td>
+    <td colspan="2">RMS-to-SLT</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">w-bn</td>
+    <td nowrap="nowrap">i-JD-GMM</td>
+    <td width="149"><audio controls>
+        <source src="wav/demo_arctic/slt2rms/i-GMM/00151.wav" type="audio/wav">
+    </audio></td>
+    <td width="161"><audio controls><source src="wav/demo_arctic/slt2rms/i-GMM/00410.wav" type="audio/wav">
+    </audio></td>
+    <td width="150"><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-GMM/00151.wav" type="audio/wav">
+    </audio></td>
+    <td width="165"><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-GMM/00410.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td>i-bn-DNN</td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/i-bn-DNN/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/i-bn-DNN/00410.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-bn-DNN/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-bn-DNN/00410.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">i-VCC2018</td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/i-VCC2018/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/i-VCC2018/00410.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-VCC2018/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/i-VCC2018/00410.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td><em>Proposed</em></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/seq2seq/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/seq2seq/00410.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/seq2seq/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/seq2seq/00410.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+  <tr>
+    <td>Reference</td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/truth/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/slt2rms/truth/00410.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/truth/00151.wav" type="audio/wav">
+    </audio></td>
+    <td><audio controls>
+        <source src="wav/demo_arctic/rms2slt/truth/00410.wav" type="audio/wav">
+    </audio></td>
+  </tr>
+</table>
+<p>&quot;i-&quot; in the prefixes of method names represent interpolation for global speaking rate adjustment. &quot;-bn-&quot; represents using bottleneck features for DNN based method as we described in the paper.</p>
+<p>&nbsp;</p>
+<h3><em>2. Comparison of proposed method to proposed method without using bottleneck features</em></h3>
+<table width="764" border="1">
+  <tr>
+    <td width="97" nowrap="nowrap">Methods</td>
+    <td colspan="2">Female-to-Male</td>
+    <td colspan="2">Male-to-Female</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Proposed</td>
     <td width="157"><audio controls>
         <source src="wav/proposed/f-m/11.wav" type="audio/wav">
       </audio></td>
@@ -227,17 +312,47 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     </audio></td>
   </tr>
 </table>
-<p>&quot;w-bn&quot; represents proposed method using bottleneck features; &quot;w/o-bn&quot; represents proposed method without using bottleneck features.</p>
+<p>&quot;w/o-bn&quot; represents proposed method without using bottleneck features.</p>
 <p>&nbsp;</p>
-<h3><em>3. Comparison of proposed method with to without attention module</em></h3>
-<table width="768" border="1">
+<p><strong>Adding bottleneck features is beneficial for improving the pronunciation correctness of converted speech.</strong></p>
+<table width="775" border="1">
   <tr>
-    <td width="93" nowrap="nowrap">&nbsp;</td>
-    <td colspan="2">Female-Male</td>
-    <td colspan="2">Male-Female</td>
+    <td width="337">Methods</td>
+    <td width="422">Audio samples</td>
+    <td width="422">Texts sound like</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">w-att</td>
+    <td>Proposed</td>
+    <td><audio controls>
+        <source src="wav/demo_bn/seq2seq.wav" type="audio/wav">
+    </audio></td>
+    <td>想听音乐，您就说打开音乐。（xiang3 ting1 yin1 yue4, nin2 jiu4 shuo1 da3 ka1 yin1 yue4.）</td>
+  </tr>
+  <tr>
+    <td>w/o-bn</td>
+    <td><audio controls>
+        <source src="wav/demo_bn/seq2seq_nobn.wav" type="audio/wav">
+    </audio></td>
+    <td>想听音乐，就说打开音乐。（xiang3 ting1 yin1 <font color="#FF0000"><em>（unclear voice）, (skipping phoneme)</em></font> jiu4 shuo1 da3 ka1 yin1 yue4.）</td>
+  </tr>
+  <tr>
+    <td>Reference</td>
+    <td><audio controls>
+        <source src="wav/demo_bn/00000697.wav" type="audio/wav">
+    </audio></td>
+    <td>想听音乐，您就说打开音乐。（xiang3 ting1 yin1 yue4, nin2 jiu4 shuo1 da3 ka1 yin1 yue4.）</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<h3><em>3. Comparison of proposed method  to proposed method without attention module</em></h3>
+<table width="768" border="1">
+  <tr>
+    <td width="93" nowrap="nowrap">Methods</td>
+    <td colspan="2">Female-to-Male</td>
+    <td colspan="2">Male-to-Female</td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Proposed</td>
         <td width="172"><audio controls>
         <source src="wav/proposed/f-m/11.wav" type="audio/wav">
       </audio></td>
@@ -282,19 +397,19 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     </audio></td>
   </tr>
 </table>
-<p>&quot;w-att&quot; and ''w/o-att'' represents proposed method   represents proposed method with and without attention mdule respectively;''i-w/o-att&quot; represents proposed method without attention and using interpolation for global speaking rate adjustment.</p>
+<p> ''w/o-att'' represents proposed method without attention module; ''i-w/o-att&quot; represents proposed method without attention and using interpolation for global speaking rate adjustment.</p>
 <p>&nbsp;</p>
-<h3><em>4. Example of mispronunciation samples in proposed method</em></h3>
+<h3><em>4. Examples of mispronunciation  in proposed method</em></h3>
 <table width="1155" border="1">
   <tr>
-    <td width="89" nowrap="nowrap">&nbsp;</td>
-    <td width="248">source utterance</td>
-    <td width="263">text</td>
-    <td width="236">converted utterance</td>
-    <td width="285">text sounds like </td>
+    <td width="89" nowrap="nowrap">Conversion Pairs</td>
+    <td width="248">Source utterances</td>
+    <td width="263">Ground truth texts</td>
+    <td width="236">Converted utterances</td>
+    <td width="285">Texts sound like </td>
   </tr>
   <tr>
-    <td nowrap="nowrap">Female-Male</td>
+    <td nowrap="nowrap">Female-to-Male</td>
     <td><audio controls>
         <source src="wav/failed/fm/00000014.wav" type="audio/wav">
     </audio></td>
@@ -306,7 +421,7 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     <td width="285">lan2 gui3 qi3 <font color="#FF0000"><em>chang</em></font>2 le0, da4 lan3 chong2, tai4 yang2 sha4 pi4 gui0 le0, gai1 yun4 dong0 yun4 dong0 le0.</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">Female-Male</td>
+    <td nowrap="nowrap">Female-to-Male</td>
     <td><audio controls>
         <source src="wav/failed/fm/00000108.wav" type="audio/wav">
     </audio></td>
@@ -317,7 +432,7 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     <td width="285">zuo4 zuo4 ye4 cong2 zao3 shang4 ba1 <font color="#FF0000"><em>dan</em></font>4 ban4 dao4 shi2 er4 dian3.</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">Male-Female</td>
+    <td nowrap="nowrap">Male-to-Female</td>
     <td><audio controls>
         <source src="wav/failed/mf/00000203.wav" type="audio/wav">
     </audio></td>
@@ -328,7 +443,7 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     <td width="285">xiang2 qu2 wo3 ma0? na4 shi4 yao4 fu<font color="#FF0000"><em>3</em></font> chu1 dai4 jia<font color="#FF0000"><em>3</em></font> de0.</td>
   </tr>
   <tr>
-    <td nowrap="nowrap">Male-Female</td>
+    <td nowrap="nowrap">Male-to-Female</td>
     <td><audio controls>
         <source src="wav/failed/mf/00000209.wav" type="audio/wav">
     </audio></td>
@@ -339,7 +454,8 @@ In this paper, a sequence-to-sequence (seq2seq) with attention model is presente
     <td width="285">ni3 jia1 <font color="#FF0000"><em>zi</em></font>4 jin4 zen3 me0 zhe4 me0 duo1 ke<font color="#FF0000"><em>3</em></font> ren<font color="#FF0000"><em>2</em></font> ne0?</td>
   </tr>
 </table>
-<p>Notice that these samples are selected from the extras non-parallel part of datas<span class="red">ets, thus no </span>corresponding ground truth target utterances can be presented. Red emphasised phomene or intonation indicates the incorrected pronunciation.</p>
+<p>Notice that these samples are selected from the extras non-parallel part of datas<span class="red">ets, thus no </span>corresponding ground truth target utterances can be presented. Red emphasised phomenes or intonations indicate the incorrect pronunciation.</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 </body>
